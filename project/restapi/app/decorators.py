@@ -1,4 +1,4 @@
-from app.utils import user_is_authenticated_with_token, get_response_403_message, user_is_staff
+from .utils import user_is_authenticated_with_token, get_response_403_message, user_is_staff
 
 
 def auth_required(func):

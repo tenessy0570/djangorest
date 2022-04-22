@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from django.contrib.auth.admin import UserAdmin
 
-from app.models import CustomUser, Product, Cart, ProductInCart, Order, OrderItem
+from .models import CustomUser, Product, Cart, ProductInCart, Order, OrderItem
 
 
 class CustomUserAdmin(UserAdmin):

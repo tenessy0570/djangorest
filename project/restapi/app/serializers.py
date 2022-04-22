@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from app.models import CustomUser, Product, Cart
-from app.validators import validate_password
+from .models import CustomUser, Product, Cart
+from .validators import validate_password
 
 UserModel = get_user_model()
 

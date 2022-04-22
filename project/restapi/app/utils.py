@@ -4,8 +4,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
 
-from app.models import CustomUser, Product, ProductInCart, Order, OrderItem
-from app.serializers import ProductEditSerializer
+from .models import CustomUser, Product, ProductInCart, Order, OrderItem
+from .serializers import ProductEditSerializer
 
 
 def create_new_user_and_get_token(serialized_data):

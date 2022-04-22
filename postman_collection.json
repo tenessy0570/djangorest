@@ -1,0 +1,1494 @@
+{
+	"info": {
+		"_postman_id": "af3f1443-c659-4781-bc5a-3c78fd57ea38",
+		"name": "rest api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[NOAUTH] register success",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"token\"],\r",
+							"    \"properties\": {\r",
+							"        \"token\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code in 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							"    \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"full_name\": \"user name\",\r\n    \"email\": \"user4@user.user\",\r\n    \"password\": \"user4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/register",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[NOAUTH] register wrong validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\", \"errors\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"warning\": {\"type\": \"string\"},\r",
+							"        \"errors\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\"type\": \"string\"}\r",
+							"            }\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code in 422\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([422])\r",
+							"})\r",
+							"    \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"full_name\": \"user name\",\r\n    \"email\": \"user4@user.user\",\r\n    \"password\": \"user4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/register",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[NOAUTH] login user success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"token\"],\r",
+							"    \"properties\": {\r",
+							"        \"token\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code in 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							"pm.environment.set(\"user_token\", resp.token)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user4@user.user\",\r\n    \"password\": \"user4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/login",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[NOAUTH] login admin success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"token\"],\r",
+							"    \"properties\": {\r",
+							"        \"token\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code in 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							"pm.environment.set(\"admin_token\", resp.token)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/login",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[ADMIN] add new product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"id\", \"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"integer\"},\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							"\r",
+							"pm.environment.set(\"new_product_id\", resp.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ddddd\",\r\n    \"info\": \"new serivce info\",\r\n    \"price\": 432432\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/service/",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"service",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[ADMIN] add new product to delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"id\", \"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"integer\"},\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							"\r",
+							"pm.environment.set(\"new_product_to_delete_id\", resp.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ddddd\",\r\n    \"info\": \"new serivce info\",\r\n    \"price\": 432432\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/service/",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"service",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[ADMIN] add new product fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\", \"errors\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"warning\": {\"type\": \"string\"},\r",
+							"        \"errors\": {\r",
+							"            \"type\": \"object\"\r",
+							"        }\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 422\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([422])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ddddd\",\r\n    \"info\": \"new serivce info\",\r\n    \"price\": \"ddddd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/service/",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"service",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[NOAUTH] login fail",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"warning\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code in 403\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([403])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin\",\r\n    \"password\": \"adm1in\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/login",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[NOAUTH] products list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"array\",\r",
+							"    \"items\": {\r",
+							"        \"type\": \"object\",\r",
+							"        \"required\": [\"id\", \"name\", \"info\", \"price\"],\r",
+							"        \"properties\": {\r",
+							"            \"id\": {\"type\": \"integer\"},\r",
+							"            \"name\": {\"type\": \"string\"},\r",
+							"            \"info\": {\"type\": \"string\"},\r",
+							"            \"price\": {\"type\": \"integer\"}\r",
+							"        }\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200])\r",
+							"})\r",
+							"\r",
+							"pm.environment.set(\"product_id\", resp[0].id)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/products",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] add product to cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/cart/{{product_id}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"cart",
+						"{{product_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] add product to cart fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"warning\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 404\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([404])\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/cart/2323",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"cart",
+						"2323"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] cart items list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"items\"],\r",
+							"    \"properties\": {\r",
+							"        \"items\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": {\r",
+							"                \"type\": \"object\",\r",
+							"                \"required\": [\"id\", \"product_id\", \"name\", \"info\", \"price\"],\r",
+							"                \"properties\": {\r",
+							"                    \"id\": {\"type\": \"integer\"},\r",
+							"                    \"product_id\": {\"type\": \"integer\"},\r",
+							"                    \"name\": {\"type\": \"string\"},\r",
+							"                    \"info\": {\"type\": \"string\"},\r",
+							"                    \"price\": {\"type\": \"integer\"}\r",
+							"                }\r",
+							"            }\r",
+							"        }\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200])\r",
+							"})\r",
+							"\r",
+							"pm.environment.set(\"cart_item_id\", resp.items[0].id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/cart",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] cart items list fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"warning\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 403\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([403])\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/cart",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] delete product from cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/cart/{{cart_item_id}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"cart",
+						"{{cart_item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] delete product from cart fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"warning\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 404\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([404])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/cart/{{cart_item_id}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"cart",
+						"{{cart_item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] add product to cart (FOR ORDER SUBMIT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/cart/{{product_id}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"cart",
+						"{{product_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] submit order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"order_id\", \"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"order_id\": {\"type\": \"integer\"},\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 201\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/order",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] submit order fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 422\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([422])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/order",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[USER] get orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"items\"],\r",
+							"    \"properties\": {\r",
+							"        \"items\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": {\r",
+							"                \"type\": \"object\",\r",
+							"                \"required\": [\"id\", \"products\", \"order_price\"],\r",
+							"                \"properties\": {\r",
+							"                    \"id\": {\"type\": \"integer\"},\r",
+							"                    \"products\": {\r",
+							"                        \"type\": \"array\",\r",
+							"                        \"items\": {\"type\": \"integer\"}\r",
+							"                    },\r",
+							"                    \"order_price\": {\"type\": \"integer\"}\r",
+							"                }\r",
+							"            }\r",
+							"        },\r",
+							"        \"price_all\": {\"type\": \"integer\"}\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/order",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[ADMIN] delete product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/service/{{new_product_to_delete_id}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"service",
+						"{{new_product_to_delete_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[ADMIN] delete product fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"warning\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 404\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([404])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/service/{{new_product_to_delete_id}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"service",
+						"{{new_product_to_delete_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[ADMIN] edit product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"items\"],\r",
+							"    \"properties\": {\r",
+							"        \"items\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"required\": [\"id\", \"name\", \"info\", \"price\"],\r",
+							"            \"properties\": {\r",
+							"                \"id\": {\"type\": \"integer\"},\r",
+							"                \"name\": {\"type\": \"string\"},\r",
+							"                \"info\": {\"type\": \"string\"},\r",
+							"                \"price\": {\"type\": \"integer\"}\r",
+							"            }\r",
+							"        }\r",
+							"    }  \r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"sddzome:dadta\",\r\n    \"info\": \"dadadadad\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/service/{{new_product_id}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"service",
+						"{{new_product_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[AUTH-REQUIRED] logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"message\"],\r",
+							"    \"properties\": {\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true,\r",
+							"    pm.expect(resp.message).to.be.equal.toString(\"logout\")\r",
+							"})\r",
+							"pm.test(\"Response code is 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user4@user.user\",\r\n    \"password\": \"user4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/logout",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[AUTH-REQUIRED] logout fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp = JSON.parse(responseBody)\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"code\", \"warning\"],\r",
+							"    \"properties\": {\r",
+							"        \"code\": {\"type\": \"integer\"},\r",
+							"        \"message\": {\"type\": \"string\"}\r",
+							"    }\r",
+							"}\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    is_valid = tv4.validate(resp, schema)\r",
+							"    pm.expect(is_valid).to.be.true\r",
+							"})\r",
+							"pm.test(\"Response code is 403\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([403])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user4@user.user\",\r\n    \"password\": \"user4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/logout",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
