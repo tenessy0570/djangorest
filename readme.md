@@ -1,17 +1,15 @@
 # Hi, this is my rest api project that I created to learn django rest framework.
 ### 1. [Installation](#Installation)
-   + ####[Using docker](#using-docker)
-        - [Via dockerhub](#via-dockerhub)
-        - [Via github](#via-github)
-   + ####[Without docker](#without-docker)
++ [Using docker](#using-docker)
+  - [Via dockerhub](#via-dockerhub)
+  - [Via github](#via-github)
+  + [Without docker](#without-docker)
 ### 2. [About project](#about-project)
 ### 3. [Request routes](#request-routes)
-+ #### [Auth actions](#auth-actions)
-+ #### [Non-auth-requiring actions](#non-auth-requiring-actions)
-+ #### [User actions](#user-actions)
-+ #### [Admin actions](#admin-actions)
-
-   
++ [Auth actions](#auth-actions)
++ [Non-auth-requiring actions](#non-auth-requiring-actions)
++ [User actions](#user-actions)
++ [Admin actions](#admin-actions)
 
 ## Installation
 ### Using docker
