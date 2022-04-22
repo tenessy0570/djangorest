@@ -11,7 +11,7 @@
 + [Auth actions](#auth-actions)
 + [Non-auth-requiring actions](#non-auth-requiring-actions)
 + [User actions](#user-actions)
-+ [Admin actions](#admin-actions
++ [Admin actions](#admin-actions)
 ### 4. [Tests](#tests)
 
 ## Installation
