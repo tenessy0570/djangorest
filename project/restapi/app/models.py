@@ -25,7 +25,9 @@ class CustomUser(AbstractUser):
 
 
 class Product(models.Model):
-    """Продукт"""
+    """
+    Product
+    """
     name = models.CharField(max_length=255, null=False, blank=False)
     info = models.TextField(null=False, blank=False)
     price = models.IntegerField(null=False, blank=False)
@@ -35,7 +37,9 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    """Корзина клиента"""
+    """
+    Client's cart
+    """
     products = models.ManyToManyField('ProductInCart')
 
     class Meta:
@@ -44,7 +48,9 @@ class Cart(models.Model):
 
 
 class ProductInCart(models.Model):
-    """Список продуктов в корзине клиента"""
+    """
+    A product that is inside of user's cart
+    """
     user_cart = models.ForeignKey('Cart', on_delete=models.CASCADE)
     cart_product = models.ForeignKey('Product', on_delete=models.CASCADE)
 
@@ -53,12 +59,16 @@ class ProductInCart(models.Model):
 
 
 class Order(models.Model):
-    """Заказ"""
+    """
+    User's order (which contains products)
+    """
     client = models.ForeignKey('CustomUser', on_delete=models.CASCADE, null=False)
     items = models.ManyToManyField('OrderItem')
 
 
 class OrderItem(models.Model):
-    """Список продуктов внутри заказа"""
+    """
+    A product that is inside user's order
+    """
     item = models.ForeignKey('Product', on_delete=models.CASCADE, null=False)
     user_order = models.ForeignKey('Order', on_delete=models.CASCADE, null=False)
