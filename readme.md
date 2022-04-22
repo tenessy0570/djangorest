@@ -3,7 +3,7 @@
 + [Using docker](#using-docker)
   - [Via dockerhub](#via-dockerhub)
   - [Via github](#via-github)
-  + [Without docker](#without-docker)
++ [Without docker](#without-docker)
 ### 2. [About project](#about-project)
 ### 3. [Request routes](#request-routes)
 + [Auth actions](#auth-actions)
