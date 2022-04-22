@@ -1,4 +1,18 @@
-# Hi, this is my rest api project that i created to learn django rest framework.
+# Hi, this is my rest api project that I created to learn django rest framework.
+### 1. [Installation](#Installation)
+   + ####[Using docker](#using-docker)
+        - [Via dockerhub](#via-dockerhub)
+        - [Via github](#via-github)
+   + ####[Without docker](#without-docker)
+### 2. [About project](#about-project)
+### 3. [Request routes](#request-routes)
++ #### [Auth actions](#auth-actions)
++ #### [Non-auth-requiring actions](#non-auth-requiring-actions)
++ #### [User actions](#user-actions)
++ #### [Admin actions](#admin-actions)
+
+   
+
 ## Installation
 ### Using docker
 *This way domain name for all requests would be:*<br>
