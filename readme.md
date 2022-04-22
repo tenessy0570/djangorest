@@ -1,4 +1,6 @@
 # Hi, this is my rest api project that I created to learn django rest framework.
+<h3>This app was created using python 3.9 <br></h3>
+
 ### 1. [Installation](#Installation)
 + [Using docker](#using-docker)
   - [Via dockerhub](#via-dockerhub)
