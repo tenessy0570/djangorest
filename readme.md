@@ -122,3 +122,6 @@ Edit product:
 ```ignorelang
 PATCH /service/<product_id>
 ```
+## Tests
+Unfortunately, I was too lazy to create pytest samples but i created postman collection that works very well <br>
+###[postman file](postman_collection.json)
