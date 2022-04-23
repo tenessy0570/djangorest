@@ -127,7 +127,9 @@ PATCH /service/<product_id>
 Unfortunately, I was too lazy to create pytest samples but i created postman collection that works very well <br>
 [!postman json file to import!](https://raw.githubusercontent.com/tenessy0570/djangorest/main/postman_collection.json) 
 (import it as postman collection and run all collection when local server is up) <br>
-also do not forget to import environment file [!postman json environment file!]() where you would change main domain 
+also do not forget to import environment file
+[!postman json environment file!](https://raw.githubusercontent.com/tenessy0570/djangorest/main/postman_environment.json) 
+where you would change main domain 
 name depending on 
 the way you installed this app (localhost or 127.0.0.1) <br><br>
 Talking about pytests - right now i have only auth test cases <br>
