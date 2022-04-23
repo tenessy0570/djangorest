@@ -125,5 +125,5 @@ PATCH /service/<product_id>
 ```
 ## Tests
 Unfortunately, I was too lazy to create pytest samples but i created postman collection that works very well <br>
-[postman json file to import](https://raw.githubusercontent.com/tenessy0570/djangorest/main/postman_collection.json)
+[postman json file to import](https://raw.githubusercontent.com/tenessy0570/djangorest/main/postman_collection.json)<br>
 Right now i have only auth test cases 
